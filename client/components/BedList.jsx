@@ -6,6 +6,7 @@ const RowComponent = ({ startIndex = 21 }) => {
     const fixedRows = 28; // Fixed number of rows
     const [data, setData] = useState(Array.from({ length: fixedRows }, () => ({ field1: '', field2: '' })));
     const [updateMessage, setUpdateMessage] = useState(''); // State for the update message
+    const [selectedRows, setSelectedRows] = useState(Array(fixedRows).fill(false)); // State for tracking selected rows
 
     // Fetch the latest patient data from the backend
     const fetchLatestPatients = async () => {
@@ -36,24 +37,38 @@ const RowComponent = ({ startIndex = 21 }) => {
         setData(newData);
     };
 
+    const handleCheckboxChange = (index) => {
+        const newSelectedRows = [...selectedRows];
+        newSelectedRows[index] = !newSelectedRows[index]; // Toggle selection
+        setSelectedRows(newSelectedRows);
+    };
+
     const handleUpdateAllRows = async () => {
-        // Prepare the data to be sent to the backend
-        const updateData = data.map((row, index) => ({
-            bedno: startIndex + index,
-            ptName: row.field1,
-            bhtNo: row.field2.replace(/\s+/g, '').toLowerCase(), // Remove spaces and convert to lowercase
-        }));
+        // Prepare the data to be sent to the backend for selected rows
+        const updateData = data.reduce((acc, row, index) => {
+            if (selectedRows[index]) {
+                acc.push({
+                    bedno: startIndex + index,
+                    ptName: row.field1,
+                    bhtNo: row.field2.replace(/\s+/g, '').toLowerCase(), // Remove spaces and convert to lowercase
+                });
+            }
+            return acc;
+        }, []);
 
         try {
-            // Send a POST request to the backend
-            const response = await axios.post('/addpatient', updateData);
-            console.log('Response from backend:', response.data);
-            setUpdateMessage('Beds updated!'); // Set the update message
+            if (updateData.length > 0) { // Check if there's any data to send
+                const response = await axios.post('/addpatient', updateData);
+                console.log('Response from backend:', response.data);
+                setUpdateMessage('Beds updated!'); // Set the update message
 
-            // Clear the message after 3 seconds
-            setTimeout(() => {
-                setUpdateMessage('');
-            }, 3000);
+                // Clear the message after 3 seconds
+                setTimeout(() => {
+                    setUpdateMessage('');
+                }, 3000);
+            } else {
+                setUpdateMessage('No rows selected!'); // Set message for no selection
+            }
         } catch (error) {
             console.error('Error updating rows:', error);
             // Optionally, handle error response here (e.g., show an error message)
@@ -64,6 +79,13 @@ const RowComponent = ({ startIndex = 21 }) => {
         <div className="row-container">
             {data.map((row, index) => (
                 <div key={index} className="row">
+                    {/* Checkbox for selecting the row */}
+                    <input
+                        type="checkbox"
+                        checked={selectedRows[index]}
+                        onChange={() => handleCheckboxChange(index)}
+                        className="checkbox"
+                    />
                     {/* Display "Bed No" label with custom index */}
                     <label className="row-label">Bed No {startIndex + index}:</label>
                     <input
