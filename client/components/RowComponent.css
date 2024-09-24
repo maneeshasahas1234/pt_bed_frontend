@@ -1,0 +1,64 @@
+/* Container for the rows */
+.row-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for each row */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Styling for the Bed No label */
+.row-label {
+    color: #333;
+    margin-right: 10px;
+    font-size: 16px;
+    width: 80px;
+    text-align: right;
+}
+
+/* Input fields styling */
+.input-field {
+    width: 45%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.input-field::placeholder {
+    color: #999;
+}
+
+/* Update button styling */
+.update-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+
+.update-message {
+    color: green; /* Change to desired color */
+    margin-top: 10px;
+    font-weight: bold; /* Optional styling */
+}
