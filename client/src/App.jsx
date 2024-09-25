@@ -2,7 +2,7 @@
 import Dashboard from "../pages/Dashboard.jsx";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://167.99.8.130:8888/";
+axios.defaults.baseURL = "https://backend-dr-bed-allocation-d7b0a9a80dd7.herokuapp.com/";
 
 function App() {
 
