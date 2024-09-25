@@ -25,7 +25,7 @@ const LatestPatientData = () => {
     const shouldHighlightRow = (currentPatient, index) => {
         return patientData.some((patient, i) =>
             i !== index && patient.bedNo === currentPatient.bedNo &&
-            (patient.bhtNo !== currentPatient.bhtNo || patient.name !== currentPatient.name)
+            (patient.name !== currentPatient.name)
         );
     };
 
@@ -44,7 +44,7 @@ const LatestPatientData = () => {
                         <th>Bed No</th>
                         <th>Timestamp</th>
                         <th>Patient Name</th>
-                        <th>BHT No</th>
+                        <th>Owner No</th>
                     </tr>
                     </thead>
                     <tbody>
