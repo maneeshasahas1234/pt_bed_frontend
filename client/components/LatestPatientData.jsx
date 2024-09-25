@@ -31,7 +31,7 @@ const LatestPatientData = () => {
 
     return (
         <div className="container">
-            <h2>Latest Patient Data</h2>
+            <h2>Pt Changes</h2>
             <button onClick={fetchLatestPatientData}>Display Data</button>
 
             {loading && <p>Loading...</p>}
