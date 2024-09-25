@@ -99,7 +99,7 @@ const RowComponent = ({ startIndex = 21 }) => {
                         type="text"
                         value={row.field2}
                         onChange={(e) => handleFieldChange(index, 'field2', e.target.value)}
-                        placeholder="Bht Number"
+                        placeholder="Owner Number"
                         className="input-field"
                     />
                 </div>
